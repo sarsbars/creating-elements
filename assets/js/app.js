@@ -5,7 +5,7 @@ const addDiv = document.querySelector('button');
 addDiv.addEventListener('click', createDiv);
 
 let count = 0; 
-const shapesArray = []; 
+const boxes = []; 
 
 //Creating HTML elements and adding attitbutes to them
 // Including custom properties (data-etc.)
@@ -14,16 +14,17 @@ function createDiv() {
     const box = document.createElement('div'); 
     box.setAttribute('class', 'blue'); 
     box.setAttribute('data-index', count); 
-    box.setAttribute('onclick', 'print(this)'); 
+    box.setAttribute('onclick', 'printMessage(this)'); 
 
     section.append(box); 
-    shapesArray.push(`I'm box number ${count}`);
+    boxes.push(`I'm box number ${count + 1}`);
 
     count++; 
 }
 
-function logInfo(obj) {
-    console.log(obj.dataset.index);
+function printMessage(obj) {
+    let boxIndex = obj.dataset.index;
+    console.log(boxes[boxIndex]);
 }
 
 // There are two ways to create html elements - you can create a string and then

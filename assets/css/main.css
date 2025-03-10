@@ -22,6 +22,7 @@ section {
         height: 100%;
         width: calc(25% - 15px);
         border-radius: 5px;
+        cursor: pointer;
         &.blue {
             background-color:blue;
         }
