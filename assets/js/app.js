@@ -2,6 +2,7 @@
 const form = document.querySelector('form');
 const section = document.querySelector('section');
 const errorMessage = document.querySelector('.error-message');
+const errorArea = document.querySelector('.error-area');
 const noteCount = document.querySelector('.note-count-value');
 const addButton = document.querySelector('.inputButton');
 
@@ -32,14 +33,17 @@ function createTask() {
     
     if (!title || !content) {
         errorMessage.textContent = 'Please enter both a title and content.';
+        errorArea.classList.add('has-error');
         return;
     }
 
     if (notes.length >= 4) {
         errorMessage.textContent = 'Maximum of 4 notes reached.';
+        errorArea.classList.add('has-error');
         return;
     }
     errorMessage.textContent = '';
+    errorArea.classList.remove('has-error');
 
     const task = new Task(title, content);
     notes.unshift(task);
@@ -61,7 +65,7 @@ function listEntries() {
         noteDiv.innerHTML = `
             <h2>${note.title}</h2>
             <p>${note.content}</p>
-            <p>Date: ${formattedDate}</p>
+            <p class="date-display">${formattedDate}</p>
         `;
 
         const deleteButton = document.createElement('button');
@@ -70,12 +74,12 @@ function listEntries() {
         noteDiv.appendChild(deleteButton);
         section.appendChild(noteDiv); 
     });
-    noteCount.textContent = notes.length;
+    noteCount.textContent = (`Total notes: ${notes.length}`);
 }
 
 function formatDate(date) {
     const dateDisplay = { month: 'long', day: 'numeric', year: 'numeric' };
-    return new Date(date).toLocaleDateString(dateDisplay);
+    return new Date(date).toLocaleDateString('en-US', dateDisplay);
 }
 
 function deleteNote(index) {
