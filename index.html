@@ -6,7 +6,7 @@
         <meta name="author" content="Sarah Mitchell">
         <meta name="description" content="My new cool project">
         <meta name="keywords" content="web development, html, css, javascript, winnipeg, canada">
-        <title>Creating Elements</title>
+        <title>To-Do App</title>
         <link rel="icon" href="./assets/media/clock.png" type="image/png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mrspecht/cdn/reset.css">
@@ -16,9 +16,27 @@
     <body>
       <main>
         <div class="container"> 
-            <section>
-            </section>
-            <button>Add div</button>
+          <div class="input-area">
+            <form>
+              <textarea
+                class="inputTitle" 
+                placeholder="Title" 
+                rows="1"
+              ></textarea>
+              <textarea
+                class="inputContent" 
+                placeholder="Enter your note here" 
+                rows="4"
+              ></textarea>
+              <button type="button" class="inputButton">Create note</button>
+            </form>
+            <p class="error-message"></p>
+          </div>
+          <div class="note-count">
+            <p class="note-count-value"></p>
+          </div>
+          <section>
+          </section>
         </div> 
       </main>
   </body>

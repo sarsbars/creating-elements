@@ -1,68 +1,84 @@
 'use strict';
-
+const form = document.querySelector('form');
 const section = document.querySelector('section');
-const addDiv = document.querySelector('button');
-addDiv.addEventListener('click', createDiv);
+const errorMessage = document.querySelector('.error-message');
+const noteCount = document.querySelector('.note-count-value');
+const addButton = document.querySelector('.inputButton');
 
-let count = 0; 
-const boxes = []; 
+addButton.addEventListener('click', createTask);
 
-//Creating HTML elements and adding attitbutes to them
-// Including custom properties (data-etc.)
+let notes = [];
 
-function createDiv() {
-    const box = document.createElement('div'); 
-    box.setAttribute('class', 'blue'); 
-    box.setAttribute('data-index', count); 
-    box.setAttribute('onclick', 'printMessage(this)'); 
+class Task {
+    #title;
+    #content;
+    #date;
 
-    section.append(box); 
-    boxes.push(`I'm box number ${count + 1}`);
+    constructor(title, content) {
+        this.#title = title;
+        this.#content = content;
+        this.#date = new Date(); 
+    }
 
-    count++; 
+    get title() { return this.#title; }
+    get content() { return this.#content; }
+    get date() { return this.#date; }
 }
 
-function printMessage(obj) {
-    let boxIndex = obj.dataset.index;
-    console.log(boxes[boxIndex]);
+
+function createTask() {
+    const title = document.querySelector('.inputTitle').value;
+    const content = document.querySelector('.inputContent').value;
+    
+    if (!title || !content) {
+        errorMessage.textContent = 'Please enter both a title and content.';
+        return;
+    }
+
+    if (notes.length >= 4) {
+        errorMessage.textContent = 'Maximum of 4 notes reached.';
+        return;
+    }
+    errorMessage.textContent = '';
+
+    const task = new Task(title, content);
+    notes.unshift(task);
+    listEntries();
+
+    document.querySelector('.inputTitle').value = '';
+    document.querySelector('.inputContent').value = '';
 }
 
-// There are two ways to create html elements - you can create a string and then
-// turn that into html, or you can use createElement 
 
+function listEntries() {
+    section.innerHTML = '';
 
-// this is a more organized way to add an object
-/*
-function createDiv() {
-    const box = document.createElement('div');
-    box.setAttribute('class', 'blue');
-    box.setAttribute('data-index', count);
-    box.setAttribute('onclick', 'logInfo(this)');
-    section.append(box);    
-    count++;
+    notes.forEach((note, index) => {
+        const noteDiv = document.createElement('div');
+        const formattedDate = formatDate(note.date);
+        noteDiv.classList.add('note');
+
+        noteDiv.innerHTML = `
+            <h2>${note.title}</h2>
+            <p>${note.content}</p>
+            <p>Date: ${formattedDate}</p>
+        `;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'x';
+        deleteButton.addEventListener('click', () => deleteNote(index));
+        noteDiv.appendChild(deleteButton);
+        section.appendChild(noteDiv); 
+    });
+    noteCount.textContent = notes.length;
 }
 
-function logInfo(obj) {
-    console.log(obj);
+function formatDate(date) {
+    const dateDisplay = { month: 'long', day: 'numeric', year: 'numeric' };
+    return new Date(date).toLocaleDateString(dateDisplay);
 }
 
-addDiv.addEventListener('click', () => {
-    createDiv();
-});
-*/
-
-// the custom property is one of the keys for the next assignment 
-// the "count" will match the object in the array of objects
-/*
-function createDivFromString() {
-    let div = `<div class="box" data-index="${count}"></div>`; // VERY IMPORTANT FOR ASSIGNMENT 2
-    section.innerHTML += div;
+function deleteNote(index) {
+    notes.splice(index, 1);
+    listEntries();
 }
-
-addDiv.addEventListener('click', () => {
-    createDivFromString();
-})
-*/
-
-//Try putting the divs in an array
-
