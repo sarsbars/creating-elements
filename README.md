@@ -8,5 +8,5 @@ Below is a screenshot of how it is aligned on my browser.
 
 Here are some examples I found before starting the project. 
 
-![Example One](./assets/img/example.png)
-![Example Two](./assets/img/example.png)
+![Example One](./assets/img/example1.png)
+![Example Two](./assets/img/example2.png)
