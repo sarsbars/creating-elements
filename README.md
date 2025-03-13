@@ -1,6 +1,6 @@
 ## Sticky Notes
 
-This is the third for Object Oriented Javascript, a notes app. 
+This is the third assignment for Object Oriented Javascript, a notes app. 
 Below is a screenshot of how it is aligned on my browser.
 
 ![Alignment](./assets/img/alignment.png)

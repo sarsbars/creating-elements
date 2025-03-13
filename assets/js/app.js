@@ -62,11 +62,13 @@ function listEntries() {
         const formattedDate = formatDate(note.date);
         noteDiv.classList.add('note');
 
+        //I used chatGPT for how to use the innerHTML property 
         noteDiv.innerHTML = `
-            <h2>${note.title}</h2>
-            <p>${note.content}</p>
-            <p class="date-display">${formattedDate}</p>
-        `;
+          <h2>${note.title}</h2>
+          <p>${note.content}</p>
+          <p class="date-display">${formattedDate}</p>
+          <button onclick="deleteNote(${index})">x</button>
+          `;
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'x';
