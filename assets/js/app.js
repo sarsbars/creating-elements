@@ -82,6 +82,7 @@ function listEntries() {
         const noteDiv = document.createElement('div');
         const formattedDate = formatDate(note.date);
         noteDiv.classList.add('note', `note-${note.colour}`); 
+        //I used chatGPT to help with the innerHTML property
         noteDiv.innerHTML = `
           <h2>${note.title}</h2>
           <p>${note.content}</p>
