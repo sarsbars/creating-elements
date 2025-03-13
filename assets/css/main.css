@@ -3,6 +3,8 @@
 body {
     background-image: url(../img/rippled-background.jpg);
     background-size: cover;
+    height: 100dvh;
+    overflow: hidden;
 }
 
 .container {
@@ -13,13 +15,30 @@ body {
 }
 
 /* - - - - - - - - - - - - - - - - - */
-/* - - - - - - - Form - - - - - - - -*/
+/* - - - - - - Form - - - - - - - - -*/
 /* - - - - - - - - - - - - - - - - - */
 .input-area {
-    display: flex;
+    display: none; 
     justify-content: center;
     align-items: flex-start;
     gap: 20px;
+}
+
+.toggle-form-button {
+    margin-top: 170px;
+    height: 45px;
+    width: 200px;
+    border-radius: 5px;
+    background-color: #d4c3f4;
+    color: #000000;
+    font-weight: 500;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 form {
@@ -32,6 +51,7 @@ form {
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     width: 250px; 
     height: 250px; 
+    position: relative; 
 }
 
 .inputTitle, .inputContent {
@@ -57,8 +77,17 @@ form {
     resize: none; 
 }
 
+.form-footer {
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .inputButton {
-    margin-top: 20px;
     height: 45px;
     width: 110px;
     border-radius: 5px;
@@ -67,8 +96,40 @@ form {
     font-weight: 500;
     font-size: 1.3rem;
     cursor: pointer;
+    border: none;
 }
 
+.colours {
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.colour-selection {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    
+    p {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    label {
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    input[type="radio"] {
+        margin: 0;
+        cursor: pointer;
+    }
+}
 /* - - - - - - - - - - - - - - - - - */
 /* - - - - - - Note Display - - - - -*/
 /* - - - - - - - - - - - - - - - - - */
@@ -86,15 +147,15 @@ section {
         display: flex;
         flex-direction: column;
         position: relative;
-        padding: 10px;
-        background-color: #f9bbe5; 
+        padding: 10px; 
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         cursor: pointer;
         overflow: hidden;
         margin-bottom: 20px;
-
+        
         p {
             margin: 0;
+            padding-top: 5px;
             font-size: 1.5rem;
             flex-grow: 1;
 
@@ -109,7 +170,7 @@ section {
 
         button {
             position: absolute;
-            top: 8px;
+            top: 1px;
             right: 10px;
             background: transparent;
             border: none;
@@ -117,11 +178,6 @@ section {
             cursor: pointer;
             color: #000; 
         }
-
-        &:nth-child(1) { background-color: #f9bbe5; }
-        &:nth-child(2) { background-color: #ccf4d8; }
-        &:nth-child(3) { background-color: #feffd8; }
-        &:nth-child(4) { background-color: #dbffff; }
     }
 }
 
@@ -131,6 +187,22 @@ h2 {
     font-weight: 700;
     border-bottom: 2px solid rgba(0, 0, 0, 0.2); 
     padding: 5px;
+}
+
+.note-blue {
+    background-color: #bfd1f9;
+}
+.note-green {
+    background-color: #cff3d4; 
+}
+.note-orange {
+    background-color: #f9d2ac; 
+}
+.note-pink {
+    background-color: #fdc9ec;
+}
+.note-purple {
+    background-color: #d4c3f4; 
 }
 
 /* - - - - - - - - - - - - - - - - - */
@@ -143,7 +215,7 @@ h2 {
     right: 15px;
     background-color: transparent;
     transition: background-color 0.3s ease;
-    width: 250px;
+    width: 300px;
     height: 50px;
     padding: 10px;
     border-radius: 5px;

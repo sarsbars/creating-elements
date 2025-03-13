@@ -1,10 +1,26 @@
 'use strict';
+
 const form = document.querySelector('form');
 const section = document.querySelector('section');
 const errorMessage = document.querySelector('.error-message');
 const errorArea = document.querySelector('.error-area');
 const noteCount = document.querySelector('.note-count-value');
 const addButton = document.querySelector('.inputButton');
+const toggleFormButton = document.querySelector('.toggle-form-button');
+const inputArea = document.querySelector('.input-area');
+
+toggleFormButton.addEventListener('click', () => {
+    inputArea.style.display = 'flex';
+    toggleFormButton.style.display = 'none';
+});
+
+document.querySelector('.inputTitle').addEventListener('input', clearError);
+document.querySelector('.inputContent').addEventListener('input', clearError);
+
+function clearError() {
+    errorMessage.textContent = '';
+    errorArea.classList.remove('has-error');
+}
 
 addButton.addEventListener('click', createTask);
 
@@ -14,25 +30,29 @@ class Task {
     #title;
     #content;
     #date;
+    #colour; 
 
-    constructor(title, content) {
+    constructor(title, content, colour) {
         this.#title = title;
         this.#content = content;
-        this.#date = new Date(); 
+        this.#date = new Date();
+        this.#colour = colour; 
     }
 
     get title() { return this.#title; }
     get content() { return this.#content; }
     get date() { return this.#date; }
+    get colour() { return this.#colour; }
 }
-
 
 function createTask() {
     const title = document.querySelector('.inputTitle').value;
     const content = document.querySelector('.inputContent').value;
-    
-    if (!title || !content) {
-        errorMessage.textContent = 'Please enter both a title and content.';
+    const selectedColour = document.querySelector('.colours').value; 
+
+    if (!title || !content || !selectedColour) {
+        errorMessage.textContent = 'Please enter a title, content, ' + 
+        'and select a colour.';
         errorArea.classList.add('has-error');
         return;
     }
@@ -42,17 +62,18 @@ function createTask() {
         errorArea.classList.add('has-error');
         return;
     }
+
     errorMessage.textContent = '';
     errorArea.classList.remove('has-error');
 
-    const task = new Task(title, content);
+    const task = new Task(title, content, selectedColour); 
     notes.unshift(task);
     listEntries();
 
     document.querySelector('.inputTitle').value = '';
     document.querySelector('.inputContent').value = '';
+    document.querySelector('#colours').selectedIndex = 0; 
 }
-
 
 function listEntries() {
     section.innerHTML = '';
@@ -60,23 +81,17 @@ function listEntries() {
     notes.forEach((note, index) => {
         const noteDiv = document.createElement('div');
         const formattedDate = formatDate(note.date);
-        noteDiv.classList.add('note');
-
-        //I used chatGPT for how to use the innerHTML property 
+        noteDiv.classList.add('note', `note-${note.colour}`); 
         noteDiv.innerHTML = `
           <h2>${note.title}</h2>
           <p>${note.content}</p>
           <p class="date-display">${formattedDate}</p>
           <button onclick="deleteNote(${index})">x</button>
-          `;
+        `;
 
-        const deleteButton = document.createElement('button');
-        deleteButton.textContent = 'x';
-        deleteButton.addEventListener('click', () => deleteNote(index));
-        noteDiv.appendChild(deleteButton);
-        section.appendChild(noteDiv); 
+        section.appendChild(noteDiv);
     });
-    noteCount.textContent = (`Total notes: ${notes.length}`);
+    noteCount.textContent = `Total notes: ${notes.length}`; 
 }
 
 function formatDate(date) {
